@@ -1,22 +1,22 @@
 import React, {createContext, useReducer} from 'react';
 
-export const AppContext = createContext({});
+export const AppContext = React.createContext({});
 
 export const AppProvider = ({ children }) => {
 	const reducer = (state, action) => {
-		switch (action.type) {
-			case "LOAD_TODOLIST":
-				return {...state, todoList: action.todoList };
-			case "LOAD_SINGLE_TODO":
-				return { ...state, activeTodoItem: action.todo };
-			default:
-				return state;
-		}
+	  switch (action.type) {
+		case "LOAD_TODOLIST":
+		  return { ...state, todoList: action.todoList };
+		case "LOAD_SINGLE_TODO":
+		  return { ...state, activeToDoItem: action.todo };
+		default:
+		  return state;
+	  }
 	};
 
-	const [appData, appDispatch] = useReducer(reducer, {
+	const [appData, appDispatch] = React.useReducer(reducer, {
 		todoList: [],
-		activeTodoItem: {id: 0}
+		activeToDoItem: { id: 0 }
 	});
 
 	return (

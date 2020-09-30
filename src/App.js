@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { TodoList } from "./TodoList";
+import { TodoItem } from './TodoItem'
 import './App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
 			</header>
 			<div className="App-body">
 				<BrowserRouter>
+					<Route path="/item/:id" component={TodoItem} />
 					<Route exact path="/" component={TodoList} />
 				</BrowserRouter>
 			</div>
