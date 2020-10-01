@@ -19,6 +19,7 @@ describe("the <App /> component", () => {
 
 		await waitForElementToBeRemoved(()=> screen.getByText(/fetching todos/i))
 		expect(screen.getByText(/Getting started with React testing library/i)).toBeInTheDocument();
+		await waitForElementToBeRemoved(() => screen.getByText(/Fetching todos/i));
 		});
 
 	it("renders todo, and one can click to view a todo item", async () => {
