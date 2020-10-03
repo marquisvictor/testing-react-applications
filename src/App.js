@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
@@ -9,17 +9,44 @@ import { auth } from './services/firebase';
 
 
 
-function App() {
+class App extends Component {
+	constructor(props) {
+		super();
+		this.state = {
+			authenticated: false,
+			loading: true,
+		}
+	}
 
-	return (
-		<div>
-			<h2>
-			Welcome to my React App
+	componentDidMount() {
+		 auth().onAuthStateChanged((user) => {
+			 if (user) {
+				 this.setState({
+					 authenticated: true, 
+					 loading:false,
+				 });
+			 } else {
+				 this.setState({
+					 authentication: false, 
+					 loading: false,
+				 });
+			 }
+		 })
+	}
 
-			</h2>
-		</div>
-	);
-}
+	render() {
+		return this.state.loading===true ? <h2>Loading...</h2> :
+		(<Router>
+			<Switch>
+				{/* <Route exact path="/" component={Home}  /> */}
+				{/* <PrivateRoute path="/chat" authenticated={this.state.authenticated} component={Chat} /> */}
+				<PublicRoute path="/signup" authenticated={this.state.authenticated} component={Signup} />
+				{/* <PublicRoute path="/login" authenticated={this.state.authenticated} component={Login} /> */}
+			</Switch>
+		</Router>
+		);
+	}
+};
 
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
 	return (
