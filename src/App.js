@@ -6,7 +6,7 @@ import Chat from './pages/Chat';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import { auth } from './services/firebase';
-
+import './style.css';
 
 
 class App extends Component {
@@ -35,13 +35,17 @@ class App extends Component {
 	}
 
 	render() {
-		return this.state.loading===true ? <h2>Loading...</h2> :
+		return this.state.loading===true ? <div class="d-flex justify-content-center">
+			 <div className="spinner-border text-success" role="status" >
+			<span className="sr-only"> Loading </span>
+		</div>
+		</div> :
 		(<Router>
 			<Switch>
 				{/* <Route exact path="/" component={Home}  /> */}
 				{/* <PrivateRoute path="/chat" authenticated={this.state.authenticated} component={Chat} /> */}
 				<PublicRoute path="/signup" authenticated={this.state.authenticated} component={Signup} />
-				{/* <PublicRoute path="/login" authenticated={this.state.authenticated} component={Login} /> */}
+				<PublicRoute path="/login" authenticated={this.state.authenticated} component={Login} />
 			</Switch>
 		</Router>
 		);
